@@ -7,4 +7,4 @@ It is a Class library designed to create UI widgets and views easily. This versi
 
 The idea behind this fork is to build interesting widgets by using latest technologies from JS, HTML5 and CSS3 only.
 
-It depends of [Neon Class System](http://github.com/azendal/neon) with its Std Library (8kb in total) without Widget of course, and that's it.
+It depends of [Neon Class System](http://github.com/azendal/neon) with its Std Library (8kb in total) without its Widget implementaion of course, and that's it.
