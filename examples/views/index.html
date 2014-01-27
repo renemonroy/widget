@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UI Views</title>
+
+  <script>
+    try {
+      if ( window.App ) {
+        console.warn("App defined.");
+      } else {
+        App = {};
+      }
+    } catch (err) {
+      App = {};
+    }
+    App.UI = App.UI || {};
+  </script>
+
+  <link href="views.css" rel="stylesheet">
+
+  <script src="../../vendor/neon.min.js"></script>
+  <script src="ViewsManager.js"></script>
+  <script src="View.js"></script>
+  
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+      // Cache view manager and views elements
+      var viewsManagerElement = document.getElementById('views'),
+      viewsElements = viewsManagerElement.getElementsByTagName('section');
+
+      // Instantiate Views Manager class
+      viewsManager = new App.UI.ViewsManager({
+        name : 'views',
+        element : viewsManagerElement
+      });
+
+      // Instantiate each View class
+      for (var i=0; i<viewsElements.length; ++i) {
+        var viewEl = viewsElements[i],
+        view = viewsManager.appendChild( new App.UI.View({
+          name : viewEl.dataset.viewName,
+          element : viewEl,
+          index : i
+        }));
+        view.bind('activate', function() {
+          console.log('View Index :', this.index);
+        });
+      }
+
+    }, false);
+  
+  </script>
+  
+</head>
+<body>
+
+  <div id="views">
+
+    <section data-view-name="about">
+      <article>
+        <p>About</p>
+      </article>
+    </section>
+
+    <section data-view-name="blog">
+      <article>
+        <p>Blog</p>
+      </article>
+    </section>
+
+    <section data-view-name="timeline">
+      <article>
+        <p>Timeline</p>
+      </article>
+    </section>
+
+  </div>
+
+</body>
+</html>
