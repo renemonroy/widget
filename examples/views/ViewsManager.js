@@ -1,4 +1,4 @@
-Class(App.UI, 'ViewsManager').inherits(App.Widget)({
+Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Helpers.Paginator)({
 
   ELEMENT_CLASS : 'ui-views-manager',
 

@@ -8,6 +8,16 @@ Class(App.UI, 'View').inherits(App.Widget)({
   
     init : function(config) { 
       App.Widget.prototype.init.call(this, config);
+    },
+
+    _activate : function() {
+      var viewEl = this.element;
+      viewEl.style.display = 'block';
+    },
+
+    _deactivate : function() {
+      var viewEl = this.element;
+      viewEl.style.display = 'none';
     }
   
   }

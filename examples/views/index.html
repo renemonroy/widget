@@ -15,11 +15,13 @@
       App = {};
     }
     App.UI = App.UI || {};
+    App.Helpers = App.Helpers || {};
   </script>
 
   <link href="views.css" rel="stylesheet">
 
   <script src="../../vendor/neon.min.js"></script>
+  <script src="Paginator.js"></script>
   <script src="ViewsManager.js"></script>
   <script src="View.js"></script>
   
@@ -29,22 +31,24 @@
 
       // Cache view manager and views elements
       var viewsManagerElement = document.getElementById('views'),
-      viewsElements = viewsManagerElement.getElementsByTagName('section');
+        viewsElements = viewsManagerElement.getElementsByTagName('section'),
+        totalViews = viewsElements.length;
 
       // Instantiate Views Manager class
       viewsManager = new App.UI.ViewsManager({
         name : 'views',
-        element : viewsManagerElement
+        element : viewsManagerElement,
+        total : totalViews
       });
 
       // Instantiate each View class
-      for (var i=0; i<viewsElements.length; ++i) {
+      for (var i=0; i<totalViews; ++i) {
         var viewEl = viewsElements[i],
-        view = viewsManager.appendChild( new App.UI.View({
-          name : viewEl.dataset.viewName,
-          element : viewEl,
-          index : i
-        }));
+          view = viewsManager.appendChild( new App.UI.View({
+            name : viewEl.dataset.viewName,
+            element : viewEl,
+            index : i
+          }));
         view.bind('activate', function() {
           console.log('View Index :', this.index);
         });
