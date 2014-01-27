@@ -2,7 +2,7 @@ Class(App.UI, 'View').inherits(App.Widget)({
 
   ELEMENT_CLASS : 'ui-view',
 
-  HTML : '<div></div>',
+  HTML : '<section></section>',
 
   prototype : {
   
