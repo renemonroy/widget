@@ -1,4 +1,4 @@
-Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Helpers.Children)({
+Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Helpers.ChildModule)({
 
   ELEMENT_CLASS : 'ui-views-manager',
 
@@ -28,9 +28,9 @@ Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Helpers.Children
        * Deactivates the current view and activates the next view returned
        * when dispacthing goTo event.
       **/
-      viewsManager.bind('children:onGoTo', function(o) {
-        o.currentChild.deactivate();
-        o.newChild.activate();
+      viewsManager.bind('child:onChange', function(e) {
+        e.oldChild.deactivate();
+        e.newChild.activate();
       });
 
     }

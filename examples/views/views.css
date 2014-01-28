@@ -1,4 +1,9 @@
 
-#views section {
+/* UI VIEW
+ *--------------------- */
+.ui-view {
+  display : block;
+}
+.ui-view.disable {
   display : none;
 }

@@ -6,20 +6,26 @@ Class(App.UI, 'View').inherits(App.Widget)({
 
   prototype : {
   
-    init : function(config) { 
-      App.Widget.prototype.init.call(this, config);
+    init : function(config) {
+      var view = this;
+      App.Widget.prototype.init.call(view, config);
+      view._bindEvents();
     },
 
-    _activate : function() {
-      var viewEl = this.element;
-      viewEl.style.display = 'block';
-    },
+    _bindEvents : function _bindEvents() {
 
-    _deactivate : function() {
-      var viewEl = this.element;
-      viewEl.style.display = 'none';
+      var view = this;
+
+      view.bind('beforeDeactivate', function() {
+        view.disable();
+      });
+
+      view.bind('activate', function() {
+        view.enable();
+      });
+
     }
-  
+ 
   }
 
 });

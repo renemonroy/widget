@@ -30,28 +30,22 @@
     document.addEventListener("DOMContentLoaded", function() {
 
       // Cache view manager and views elements
-      var viewsManagerElement = document.getElementById('views'),
-        viewsElements = viewsManagerElement.getElementsByTagName('section');
+      var viewsManagerEl = document.getElementById('views'),
+        viewsElements = viewsManagerEl.getElementsByTagName('section'),
+        totalViews = viewsElements.length;
 
       // Instantiate Views Manager class
       viewsManager = new App.UI.ViewsManager({
-        element : viewsManagerElement
+        element : viewsManagerEl
       });
 
       // Instantiate each View class
-      //for (var i=0; i<totalViews; ++i) {
-        /*
+      for (var i=0; i<totalViews; ++i) {
         var viewEl = viewsElements[i],
-          view = viewsManager.appendChild( new App.UI.View({
-            name : viewEl.dataset.viewName,
-            element : viewEl,
-            index : i
-            }));
-        view.bind('activate', function() {
-          console.log('View Index :', this.index);
-        });
-        */
-      //}
+          newView = viewsManager.create(App.UI.View, {
+            element : viewEl
+          }).disable();
+      }
 
     }, false);
   
@@ -62,19 +56,7 @@
 
   <div id="views" class="ui-views-manager">
 
-    <section data-view-name="about">
-      <article>
-        <p>About</p>
-      </article>
-    </section>
-
-    <section data-view-name="blog">
-      <article>
-        <p>Blog</p>
-      </article>
-    </section>
-
-    <section data-view-name="timeline">
+    <section class="ui-view">
       <article>
         <p>Timeline</p>
       </article>

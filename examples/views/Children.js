@@ -2,7 +2,7 @@
   This Module was created to use array of children classes easily.
 **/
 
-Module(App.Helpers, 'Children')({
+Module(App.Helpers, 'ChildModule')({
 
   prototype : {
  
@@ -15,8 +15,8 @@ Module(App.Helpers, 'Children')({
     goTo : function goTo(index) {
       var myClass = this;
       if ( typeof index === 'number' && index !== myClass.currentPos ) {
-        myClass.dispatch('children:onGoTo', {
-          currentChild : myClass.children[myClass.currentPos],
+        myClass.dispatch('child:onChange', {
+          oldChild : myClass.children[myClass.currentPos],
           newChild : myClass.children[index]
         });
         myClass.currentPos = index;
@@ -66,15 +66,15 @@ Module(App.Helpers, 'Children')({
      * Creates a new child Class instance with a random name. It does not
      * render and should does it manually.
     **/
-    create : function create(instance, el) {
-      var myClass = this, config = {}, newChild;
-      config.name = 'child_' + Math.random().toString().replace('.', '').substr(0, 24);
-      if (el) {
-        config.element = el;
-      }
+    create : function create(instance, config) {
+      var myClass = this, newChild;
+      config = config || {};
+      if ( !config.name ) {
+        config.name = 'child_' + Math.random().toString().replace('.', '').substr(0, 24);
+      }      
       newChild = myClass.appendChild( new instance(config));
-      myClass.dispatch('children:onCreate', { newChild : newChild });
-      return this;
+      myClass.dispatch('child:onCreate', { newChild : newChild });
+      return newChild;
     }
   
   }
