@@ -67,11 +67,13 @@ Module(App.Helpers, 'Children')({
      * render and should does it manually.
     **/
     create : function create(instance, el) {
-      var myClass = this, newInstance;
-      newInstance = myClass.appendChild( new instance({
-        name : Math.random().toString().replace('.', '').substr(0, 24),
-        element : el ? el : instance.HTML
-      }));
+      var myClass = this, config = {}, newChild;
+      config.name = 'child_' + Math.random().toString().replace('.', '').substr(0, 24);
+      if (el) {
+        config.element = el;
+      }
+      newChild = myClass.appendChild( new instance(config));
+      myClass.dispatch('children:onCreate', { newChild : newChild });
       return this;
     }
   

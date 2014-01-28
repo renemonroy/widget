@@ -25,11 +25,12 @@ Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Helpers.Children
       var viewsManager = this;
 
       /** 
-       * When child context changes
+       * Deactivates the current view and activates the next view returned
+       * when dispacthing goTo event.
       **/
-      viewsManager.bind('children:onGoTo', function(views) {
-        views.currentChild.deactivate();
-        views.newChild.activate();
+      viewsManager.bind('children:onGoTo', function(o) {
+        o.currentChild.deactivate();
+        o.newChild.activate();
       });
 
     }
