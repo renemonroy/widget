@@ -2,7 +2,7 @@
   This Module was created to use array of children classes easily.
 **/
 
-Module(App.Helpers, 'ChildModule')({
+Module(App.Helpers, 'ChildrenManager')({
 
   prototype : {
  
@@ -13,15 +13,16 @@ Module(App.Helpers, 'ChildModule')({
      * DOM manipulation and let the main Class take care of it.
     **/
     goTo : function goTo(index) {
-      var myClass = this;
+      var myClass = this, myChild;
       if ( typeof index === 'number' && index !== myClass.currentPos ) {
+        myChild = myClass.children[index];
         myClass.dispatch('child:onChange', {
           oldChild : myClass.children[myClass.currentPos],
-          newChild : myClass.children[index]
+          newChild : myChild
         });
         myClass.currentPos = index;
       }
-      return this;
+      return myChild;
     },
 
     /**
@@ -29,13 +30,13 @@ Module(App.Helpers, 'ChildModule')({
      * child if the last context was the last child.
     **/
     next : function next() {
-      var myClass = this;
+      var myClass = this, myChild;
       if ( myClass.currentPos < (myClass.children.length - 1) ) {
-        myClass.goTo(myClass.currentPos + 1);
+        myChild = myClass.goTo(myClass.currentPos + 1);
       } else {
-        myClass.goTo(0);
+        myChild = myClass.first();
       }
-      return this;
+      return myChild;
     },
 
     /**
@@ -43,22 +44,42 @@ Module(App.Helpers, 'ChildModule')({
      * to the last one if the context was the first child.
     **/
     prev : function prev() {
-      var myClass = this;
+      var myClass = this, myChild;
       if ( myClass.currentPos > 0 ) {
-        myClass.goTo(myClass.currentPos - 1);
+        myChild = myClass.goTo(myClass.currentPos - 1);
       } else {
-        myClass.goTo(myClass.children.length - 1);
+        myChild = myClass.last();
       }
-      return this;
+      return myChild;
+    },
+    
+    /**
+     * Uses goTo to change context to last child in the array.
+    **/
+    first : function first() {
+      var myClass = this, myChild;
+      myChild = myClass.goTo(0);
+      return myChild;
     },
 
     /**
-     * Removes a child class from the parent given a string 'name'. The element
-     * will be removed from DOM too.
+     * Uses goTo to change context to last child in the array.
     **/
-    remove : function remove(name) {
-      var myClass = this; 
-      myClass[name].destroy();
+    last : function last() {
+      var myClass = this, myChild;
+      myChild = myClass.goTo(myClass.children.length - 1);
+      return myChild;
+    },
+
+    /**
+     * Removes a child class from the parent. The element will be removed from DOM
+     * too. Events are added to help.
+    **/
+    remove : function remove(myChild) {
+      var myClass = this;
+      myClass.bind('child:beforeDestroy', { removedChild : myChild });
+      myChild.destroy();
+      myClass.bind('child:afterDestroy', { removedChild : myChild });
       return this;
     },
 
