@@ -42,7 +42,7 @@
       // Instantiate each View class
       for (var i=0; i<totalViews; ++i) {
         var viewEl = viewsElements[i],
-          newView = viewsManager.create(App.UI.View, {
+          newView = viewsManager.createChild(App.UI.View, {
             element : viewEl
           }).disable();
       }
