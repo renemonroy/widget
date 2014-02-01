@@ -2,17 +2,17 @@
   This Module was created to use array of children classes easily.
 **/
 
-Module(App.Helpers, 'ChildrenManager')({
+Module(App.Helpers, 'ChildrenSupport')({
 
   prototype : {
  
-    currentChildPos : 0,
+    currentChildPos : null,
 
     /**
      * Dispatches the new and old context of children. The goal is to not do
      * DOM manipulation and let the main Class take care of it.
     **/
-    getChild : function getChild(index) {
+    getChildByIndex : function getChildByIndex(index) {
       var myClass = this, myChild;
       if ( typeof index === 'number' && index !== myClass.currentChildPos ) {
         myChild = myClass.children[index];
@@ -26,13 +26,13 @@ Module(App.Helpers, 'ChildrenManager')({
     },
 
     /**
-     * Uses getChild to change context to the next child. It changes to the first
+     * Uses getChildByIndex to change context to the next child. It changes to the first
      * child if the last context was the last child.
     **/
     getNextChild : function getNextChild() {
       var myClass = this, myChild;
       if ( myClass.currentChildPos < (myClass.children.length - 1) ) {
-        myChild = myClass.getChild(myClass.currentChildPos + 1);
+        myChild = myClass.getChildByIndex(myClass.currentChildPos + 1);
       } else {
         myChild = myClass.getFirstChild();
       }
@@ -40,13 +40,13 @@ Module(App.Helpers, 'ChildrenManager')({
     },
 
     /**
-     * Uses getChild to change context to a previous child in the array. It changes
+     * Uses getChildByIndex to change context to a previous child in the array. It changes
      * to the last one if the context was the first child.
     **/
     getPrevChild : function getPrevChild() {
       var myClass = this, myChild;
       if ( myClass.currentChildPos > 0 ) {
-        myChild = myClass.getChild(myClass.currentChildPos - 1);
+        myChild = myClass.getChildByIndex(myClass.currentChildPos - 1);
       } else {
         myChild = myClass.getLastChild();
       }
@@ -54,20 +54,20 @@ Module(App.Helpers, 'ChildrenManager')({
     },
     
     /**
-     * Uses getChild to change context to last child in the array.
+     * Uses getChildByIndex to change context to last child in the array.
     **/
     getFirstChild : function getFirstChild() {
       var myClass = this, myChild;
-      myChild = myClass.getChild(0);
+      myChild = myClass.getChildByIndex(0);
       return myChild;
     },
 
     /**
-     * Uses getChild to change context to last child in the array.
+     * Uses getChildByIndex to change context to last child in the array.
     **/
     getLastChild : function getLastChild() {
       var myClass = this, myChild;
-      myChild = myClass.getChild(myClass.children.length - 1);
+      myChild = myClass.getChildByIndex(myClass.children.length - 1);
       return myChild;
     },
 
