@@ -44,8 +44,10 @@
         var viewEl = viewsElements[i],
           newView = viewsManager.createChild(App.UI.View, {
             element : viewEl
-          }).disable();
+          }).deactivate();
       }
+
+      viewsManager.getFirstChild().activate();
 
     }, false);
   
@@ -59,6 +61,18 @@
     <section class="ui-view">
       <article>
         <p>Timeline</p>
+      </article>
+    </section>
+
+    <section class="ui-view">
+      <article>
+        <p>About</p>
+      </article>
+    </section>
+    
+    <section class="ui-view">
+      <article>
+        <p>Blog</p>
       </article>
     </section>
 

@@ -13,16 +13,16 @@ Module(App.Helpers, 'ChildrenSupport')({
      * DOM manipulation and let the main Class take care of it.
     **/
     getChildByIndex : function getChildByIndex(index) {
-      var myClass = this, myChild;
-      if ( typeof index === 'number' && index !== myClass.currentChildPos ) {
+      var myClass = this, myChild, currentPos = myClass.currentChildPos;
+      if ( typeof index === 'number' && index !== currentPos ) {
         myChild = myClass.children[index];
         myClass.dispatch('child:onChange', {
-          oldChild : myClass.children[myClass.currentChildPos],
+          oldChild : myClass.children[currentPos],
           newChild : myChild
         });
         myClass.currentChildPos = index;
       }
-      return myChild;
+      return myChild || myClass.children[currentPos];
     },
 
     /**
@@ -84,8 +84,8 @@ Module(App.Helpers, 'ChildrenSupport')({
     },
 
     /**
-     * Creates a new child Class instance with a random name. It does not
-     * render and should does it manually.
+     * Creates a new child Class instance with a random name if is no name is added. 
+     * It does not render but creates a context for the first child.
     **/
     createChild : function createChild(instance, config) {
       var myClass = this, newChild;
@@ -94,6 +94,9 @@ Module(App.Helpers, 'ChildrenSupport')({
         config.name = 'child_' + Math.random().toString().replace('.', '').substr(0, 24);
       }      
       newChild = myClass.appendChild( new instance(config));
+      if ( myClass.currentChildPos === null ) {
+        myClass.currentChildPos = 0;
+      }
       myClass.dispatch('child:onCreate', { newChild : newChild });
       return newChild;
     }

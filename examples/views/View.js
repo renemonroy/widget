@@ -5,6 +5,8 @@ Class(App.UI, 'View').inherits(App.Widget)({
   HTML : '<section></section>',
 
   prototype : {
+
+    transitionEnd : 'transitionend webkitTransitionEnd oTransitionEnd otransitionend',
   
     init : function(config) {
       var view = this;
@@ -16,16 +18,17 @@ Class(App.UI, 'View').inherits(App.Widget)({
 
       var view = this;
 
-      view.bind('beforeDeactivate', function() {
-        view.disable();
-      });
+      /**
+       * Disable this view before deactivation.
+      **/
+      view.bind('beforeDeactivate', view.disable);
 
-      view.bind('activate', function() {
-        view.enable();
-      });
+      /**
+       * Enable this view after activation.
+      **/
+      view.bind('activate', view.enable);
 
-    }
- 
+    } 
   }
 
 });
