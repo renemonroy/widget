@@ -6,6 +6,8 @@ Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Helpers.Children
 
   prototype : {
 
+    animationStyle : 'fade',
+
     /**
      * Inherits Init method from Widget Class. It also runs all initial
      * methods needed in the beginning.
@@ -31,6 +33,10 @@ Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Helpers.Children
       viewsManager.bind('child:onChange', function(e) {
         e.oldChild.deactivate();
         e.newChild.activate();
+      });
+
+      viewsManager.bind('child:onCreate', function(e) {
+        e.newChild.element.classList.add(viewsManager.animationStyle);
       });
 
     }
