@@ -31,24 +31,26 @@
     document.addEventListener("DOMContentLoaded", function() {
 
       // Cache view manager and views elements
-      var viewsManagerEl = document.getElementById('views'),
-        viewsElements = viewsManagerEl.getElementsByTagName('section'),
-        totalViews = viewsElements.length;
+      var $pages = document.getElementById('pages'),
+        $sections = $pages.getElementsByTagName('section'),
+        totalViews = $sections.length;
 
       // Instantiate Views Manager class
-      viewsManager = new App.UI.ViewsManager({
-        element : viewsManagerEl
+      pages = new App.UI.ViewsManager({
+        element : $pages,
+        className : 'ui-views-manager'
       });
 
       // Instantiate each View class
-      for (var i=0; i<totalViews; ++i) {
-        var viewEl = viewsElements[i],
-          newView = viewsManager.createChild(App.UI.View, {
-            element : viewEl
-          });
+      var page = App.UI.View;
+      for (var i=0; i < totalViews; ++i) {
+        pages.createChild(page, {
+          element : $sections[i],
+          className : 'ui-view'
+        });
       }
       
-      viewsManager.getFirstChild().activate();
+      pages.getFirstChild().activate();
 
     }, false);
   
@@ -57,21 +59,21 @@
 </head>
 <body>
 
-  <div id="views" class="ui-views-manager">
+  <div id="pages">
 
-    <section class="ui-view" style="background-color: red;">
+    <section class="page">
       <article>
         <p>Timeline</p>
       </article>
     </section>
 
-    <section class="ui-view" style="background-color: blue;">
+    <section class="page">
       <article>
         <p>About</p>
       </article>
     </section>
     
-    <section class="ui-view" style="background-color: yellow;">
+    <section class="page">
       <article>
         <p>Blog</p>
       </article>
