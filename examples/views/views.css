@@ -15,24 +15,20 @@ html, body {
   -ms-perspective : 1200px;
   -o-perspective : 1200px;
   perspective : 1200px;
-  -webkit-transform-style : preserve-3d;
-  -moz-transform-style : preserve-3d;
-  -ms-transform-style : preserve-3d;
-  -o-transform-style : preserve-3d;
-  transform-style : preserve-3d;
+  overflow : hidden;
 }
 
 
 /* UI VIEW
  *--------------------- */
 .ui-view {
-  display : inline-block;
   position : absolute;
   width : 100%;
   height : 100%;
+  overflow : hidden;
+  display : none;
   top : 0;
   left : 0;
-  overflow : hidden;
   -webkit-backface-visibility : hidden;
   -moz-backface-visibility : hidden;
   -o-backface-visibility : hidden;
@@ -41,31 +37,99 @@ html, body {
   -moz-transform : translate3d(0, 0, 0);
   -o-transform : translate3d(0, 0, 0);
   transform : translate3d(0, 0, 0);
+  -webkit-transform-style : preserve-3d;
+  -moz-transform-style : preserve-3d;
+  -ms-transform-style : preserve-3d;
+  -o-transform-style : preserve-3d;
+  transform-style : preserve-3d;
   box-sizing : border-box;
 }
-/*
-.ui-view.disable {
-  visibility : hidden;
-  opacity : 0;
-}
 .ui-view.active {
-  visibility : visible;
-  opacity : 1;
-}
-*/
-
-/* Animations 
- *--------------------- */
-
-.fade {
-  opacity : 0;
-  -webkit-transition : .7s opacity ease-in-out;
-  -moz-transition : .7s opacity ease-in-out;
-  -ms-transition : .7s opacity ease-in-out;
-  -o-transition : .7s opacity ease-in-out;
-  transition : .7s opacity ease-in-out;
+  display : block;
 }
 
-.fade.active {
-  opacity : 1;
+/* ANIMATIONS 
+ --------------------- */
+
+.fade-in {
+  -webkit-animation : fadeIn .7s ease both;
+  -moz-animation : fadeIn .7s ease both;
+  -o-animation : fadeIn .7s ease both;
+  animation : fadeIn .7s ease both;  
+}
+.fade-out {
+  -webkit-animation : fadeOut .7s ease both;
+  -moz-animation : fadeOut .7s ease both;
+  -o-animation : fadeOut .7s ease both;
+  animation : fadeOut .7s ease both;  
+}
+.scale-down-center {
+  -webkit-animation : scaleDownCenter .4s ease-in both;
+  -moz-animation : scaleDownCenter .4s ease-in both;
+  -o-animation : scaleDownCenter .4s ease-in both;
+  animation : scaleDownCenter .4s ease-in both;
+}
+.scale-up-center {
+  -webkit-animation : scaleUpCenter .4s ease-out both;
+  -moz-animation : scaleUpCenter .4s ease-out both;
+  -o-animation : scaleUpCenter .4s ease-out both;
+  animation : scaleUpCenter .4s ease-out both;
+}
+
+/* Fade */
+
+@-webkit-keyframes fadeIn {
+  from { opacity: 0; }
+}
+@-moz-keyframes fadeIn {
+  from { opacity: 0; }
+}
+@-o-keyframes fadeIn {
+  from { opacity: 0; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+}
+
+@-webkit-keyframes fadeOut {
+  to { opacity: 0; }
+}
+@-moz-keyframes fadeOut {
+  to { opacity: 0; }
+}
+@-o-keyframes fadeOut {
+  to { opacity: 0; }
+}
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+/* Scale Down to Center */
+
+@-webkit-keyframes scaleDownCenter {
+  to { opacity: 0; -webkit-transform: scale(.7); }
+}
+@-moz-keyframes scaleDownCenter {
+  to { opacity: 0; -moz-transform: scale(.7); }
+}
+@-o-keyframes scaleDownCenter {
+  to { opacity: 0; -moz-transform: scale(.7); }
+}
+@keyframes scaleDownCenter {
+  to { opacity: 0; transform: scale(.7); }
+}
+
+/* Scale Up from Center */
+
+@-webkit-keyframes scaleUpCenter {
+  from { opacity: 0; -webkit-transform: scale(.7); }
+}
+@-moz-keyframes scaleUpCenter {
+  from { opacity: 0; -moz-transform: scale(.7); }
+}
+@-o-keyframes scaleUpCenter {
+  from { opacity: 0; -moz-transform: scale(.7); }
+}
+@keyframes scaleUpCenter {
+  from { opacity: 0; transform: scale(.7); }
 }

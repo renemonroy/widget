@@ -1,34 +1,17 @@
-Class(App.UI, 'View').inherits(App.Widget)({
+Class(App.UI, 'View').inherits(App.Widget).includes(App.Modules.WidgetAnimator)({
 
   ELEMENT_CLASS : 'ui-view',
 
   HTML : '<section></section>',
 
   prototype : {
-
-    transitionEnd : 'transitionend webkitTransitionEnd oTransitionEnd otransitionend',
   
     init : function(config) {
       var view = this;
       App.Widget.prototype.init.call(view, config);
-      view._bindEvents();
-    },
+      view._bindAnimations();
+    }
 
-    _bindEvents : function _bindEvents() {
-
-      var view = this;
-
-      /**
-       * Disable this view before deactivation.
-      **/
-      view.bind('beforeDeactivate', view.disable);
-
-      /**
-       * Enable this view after activation.
-      **/
-      view.bind('activate', view.enable);
-
-    } 
   }
 
 });

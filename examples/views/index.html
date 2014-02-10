@@ -15,13 +15,14 @@
       App = {};
     }
     App.UI = App.UI || {};
-    App.Helpers = App.Helpers || {};
+    App.Modules = App.Modules || {};
   </script>
 
   <link href="views.css" rel="stylesheet">
 
   <script src="../../vendor/neon.min.js"></script>
-  <script src="ChildrenSupport.js"></script>
+  <script src="../../lib/modules/WidgetAnimator.js"></script>
+  <script src="../../lib/modules/ChildrenManager.js"></script>
   <script src="ViewsManager.js"></script>
   <script src="View.js"></script>
   
@@ -44,9 +45,9 @@
         var viewEl = viewsElements[i],
           newView = viewsManager.createChild(App.UI.View, {
             element : viewEl
-          }).deactivate();
+          });
       }
-
+      
       viewsManager.getFirstChild().activate();
 
     }, false);

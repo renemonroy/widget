@@ -1,4 +1,4 @@
-Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Helpers.ChildrenSupport)({
+Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Modules.ChildrenManager)({
 
   ELEMENT_CLASS : 'ui-views-manager',
 
@@ -6,7 +6,22 @@ Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Helpers.Children
 
   prototype : {
 
-    animationStyle : 'fade',
+    animateViews : true,
+
+    /**
+     * Both style classes required to animated transitions between views.
+     * Supported: 'fade-out', 'scale-to-center', 'scale-from-center'
+    **/
+
+    /**
+     * Supports : 'fade-in', 'scale-up-center'
+    **/
+    animationIn : 'fade-in',
+
+    /**
+     * Supports : 'fade-out', 'scale-down-center'
+    **/
+    animationOut : 'fade-out',
 
     /**
      * Inherits Init method from Widget Class. It also runs all initial
@@ -14,7 +29,7 @@ Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Helpers.Children
     **/
     init : function init(config) {
       var viewsManager = this;
-      App.Widget.prototype.init.call(viewsManager, config); 
+      App.Widget.prototype.init.call(viewsManager, config);
       viewsManager._bindEvents();
     },
 
@@ -31,12 +46,15 @@ Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Helpers.Children
        * when dispacthing goTo event.
       **/
       viewsManager.bind('child:onChange', function(e) {
-        e.oldChild.deactivate();
-        e.newChild.activate();
-      });
 
-      viewsManager.bind('child:onCreate', function(e) {
-        e.newChild.element.classList.add(viewsManager.animationStyle);
+        if ( viewsManager.animateViews ) {
+          e.oldChild.deactivateAnimated(viewsManager.animationOut);
+          e.newChild.activateAnimated(viewsManager.animationIn);
+        } else {
+          e.oldChild.deactivate();
+          e.newChild.activate();
+        }
+
       });
 
     }
