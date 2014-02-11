@@ -1,4 +1,4 @@
-Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Modules.ChildrenManager)({
+Class(App.UI, 'ViewsManager').inherits(App.Widget).includes(App.Modules.ChildrenSupport)({
 
   ELEMENT_CLASS : 'ui-views-manager',
 

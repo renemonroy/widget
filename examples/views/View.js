@@ -1,4 +1,4 @@
-Class(App.UI, 'View').inherits(App.Widget).includes(App.Modules.WidgetAnimator)({
+Class(App.UI, 'View').inherits(App.Widget).includes(App.Modules.AnimationSupport)({
 
   ELEMENT_CLASS : 'ui-view',
 
