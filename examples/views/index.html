@@ -21,36 +21,54 @@
   <link href="views.css" rel="stylesheet">
 
   <script src="../../vendor/neon.min.js"></script>
-  <script src="../../lib/modules/WidgetAnimator.js"></script>
-  <script src="../../lib/modules/ChildrenManager.js"></script>
+  <script src="../../lib/modules/AnimationSupport.js"></script>
+  <script src="../../lib/modules/ChildrenSupport.js"></script>
   <script src="ViewsManager.js"></script>
   <script src="View.js"></script>
   
   <script>
 
+    var PagesManager = App.UI.ViewsManager,
+      Page = App.UI.View,
+      allPages = [
+        { title : 'Lorem Ipsum', url : '/lorem-ipsum' },
+        { title : 'Test', url : '/test' },
+        { title : 'Far Far Away', url : '/Far Far Away'  }
+      ],
+      totalPages = allPages.length;
+
     document.addEventListener("DOMContentLoaded", function() {
 
-      // Cache view manager and views elements
       var $pages = document.getElementById('pages'),
-        $sections = $pages.getElementsByTagName('section'),
-        totalViews = $sections.length;
+        pagesTmp = document.createDocumentFragment();
 
-      // Instantiate Views Manager class
-      pages = new App.UI.ViewsManager({
+      pagesManager = new PagesManager({
         element : $pages,
         className : 'ui-views-manager'
       });
 
-      // Instantiate each View class
-      var page = App.UI.View;
-      for (var i=0; i < totalViews; ++i) {
-        pages.createChild(page, {
-          element : $sections[i],
-          className : 'ui-view'
+      var createPage = function createPage(data) {
+        var newPage = pagesManager.createChild(Page, {
+          className : 'page',
+          data : data
         });
+        newPage.bind('activate', function() {
+          console.log('Page Title:', this.data.title);
+        })
+        return newPage;
+      };
+
+      for (var i=0; i < totalPages; ++i) {
+        createPage(allPages[i]).render(pagesTmp);
+        /*
+        router.createChild(Route, {
+          path : page.url,
+          exec : page.activate
+        });
+         */
       }
-      
-      pages.getFirstChild().activate();
+      pagesManager.element.appendChild(pagesTmp);
+      pagesManager.getFirstChild().activate();
 
     }, false);
   
@@ -59,27 +77,7 @@
 </head>
 <body>
 
-  <div id="pages">
-
-    <section class="page">
-      <article>
-        <p>Timeline</p>
-      </article>
-    </section>
-
-    <section class="page">
-      <article>
-        <p>About</p>
-      </article>
-    </section>
-    
-    <section class="page">
-      <article>
-        <p>Blog</p>
-      </article>
-    </section>
-
-  </div>
+  <div id="pages"></div>
 
 </body>
 </html>
