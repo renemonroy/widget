@@ -5,13 +5,51 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Image Cropper</title>
-	<link rel="stylesheet" href="">
+  <link rel="stylesheet" href="img-cropper/style.css" type="text/css" />
+	<link rel="stylesheet" href="img-cropper/img-cropper.css" type="text/css" />
 
-	<script src="img-cropper/img-cropper.js"></script>
+	<script>
+		try {
+			if ( window.App ) {
+				console.warn("App defined.");
+			} else {
+				App = {};
+			}
+		} catch (err) {
+			App = {};
+		}
+		App.UI = {};
+
+		// Global namespece for PlaceIt
+		window.placeIt = {};
+
+		// Event listener to exec when DOM loads
+		document.addEventListener('DOMContentLoaded', function(){
+
+			// Initial variables to configure the Cropper
+  		var canvasContainer = document.getElementById('canvas-container'),
+  			canvasWidth = canvasContainer.offsetWidth,
+  			canvasHeight = canvasContainer.offsetHeight;
+  			
+  		// Instantiate the StageCropper and render it into canvas container
+  		placeIt.stageCropper = new App.UI.StageCropper({
+				imageSrc : 'img-cropper/images/example-1440x900.jpg'
+			}).render(canvasContainer);
+
+		});
+
+	</script>
 
 </head>
 
 <body>
+
+	<section id="canvas-container"></section>
+
+	<script src="../vendor/neon.js"></script>
+	<script src="../lib/widget.js"></script>
+	<script src="img-cropper/img-cropper.js"></script>
+
 </body>
 
 </html>

@@ -1,0 +1,8 @@
+/**
+ * Stage Cropper widget styles
+**/
+.stage-cropper {
+	height : 100%;
+	width  : 100%;
+	background : transparent url('images/bg-pattern.png') 0 0 repeat; 
+}
