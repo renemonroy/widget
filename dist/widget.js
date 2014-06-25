@@ -2,7 +2,7 @@
 
 This is a fork of widget.js (v1.0.0) created by Azendal (http://github.com/azendal)
 Author: René Monroy
-Description: Class library designed to create UI widgets easily. This version uses new Web API interfaces which means it doesn't depend on jQuery.
+Description: Class library designed to create UI widgets easily. This version uses new Web API interfaces which means it doesn't depend on jQuery. I also added a couple of improvements and features.
 Dependencies: Neon Class System (http://github.com/azendal/neon)
 Version: v0.1.0
 
